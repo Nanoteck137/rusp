@@ -19,7 +19,7 @@
           rustc = rustVersion;
         };
 
-        rusp = rustPlatform.buildRustPackage {
+        ruspPackage = rustPlatform.buildRustPackage {
           pname =
             "rusp"; # make this what ever your cargo.toml package.name is
           version = "0.1.0";
@@ -28,7 +28,8 @@
         };
 
       in {
-        defaultPackage = rusp;
+        packages = { rusp = ruspPackage; };
+        defaultPackage = ruspPackage;
         devShell = pkgs.mkShell {
           buildInputs = [ 
             (rustVersion.override { extensions = [ "rust-src" ]; }) 
